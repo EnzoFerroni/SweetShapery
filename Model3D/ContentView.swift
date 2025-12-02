@@ -28,21 +28,20 @@ struct ContentView: View {
     
     /// Tracks whether the 3D model window is currently open.
     /// This state determines the button's label and action.
-    @State private var isWindowOpen: Bool = false
+    @State private var isVolumeOpen: Bool = false
 
     // MARK: - Body
     
     var body: some View {
         Text("Hello, World!")
         
-        Button(isWindowOpen ? "Close iPhone Window" : "Open iPhone Window") {
-            if isWindowOpen {
-                dismissWindow(id: "iPhoneWindow")
-                isWindowOpen = false
-            }
-            else {
-                openWindow(id: "iPhoneWindow")
-                isWindowOpen = true
+        Button(isVolumeOpen ? "Close iPhone Volume" : "Open iPhone Volume") {
+            if isVolumeOpen {
+                dismissWindow(id: "iPhoneVolume")
+                isVolumeOpen = false
+            } else {
+                openWindow(id: "iPhoneVolume")
+                isVolumeOpen = true
             }
         }
     }

@@ -33,5 +33,11 @@ struct Model3DApp: App {
             iPhoneModel3DView()
         }
         .defaultSize(width: 500, height: 500)
+        
+        WindowGroup(id: "iPhoneVolume") {
+            iPhoneRealityView()
+        }
+        .windowStyle(.volumetric)
+        .defaultSize(width: 1000, height: 1000, depth: 1000)
     }
 }
