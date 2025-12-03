@@ -1,0 +1,284 @@
+#usda 1.0
+(
+    defaultPrim = "Root"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Root"
+{
+    reorder nameChildren = ["GridMaterial", "Transform", "ToyBiplane", "cone", "Box"]
+    def "GridMaterial" (
+        active = true
+        references = @Materials/GridMaterial.usda@
+    )
+    {
+        float3 xformOp:scale = (1, 1, 1)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Xform "Transform" (
+        active = true
+    )
+    {
+    }
+
+    def Cone "cone" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        uniform token axis = "Y"
+        double height = 0.1
+        rel material:binding = </Root/cone/DefaultMaterial>
+        double radius = 0.05
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0.047387876, 0.050274555, 0.046994586)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "DefaultMaterial"
+        {
+            token outputs:surface.connect = </Root/cone/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+
+            def Shader "DefaultSurfaceShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (1, 1, 1)
+                float inputs:roughness = 0.75
+                token outputs:surface
+            }
+        }
+
+        def RealityKitComponent "Collider"
+        {
+            uint group = 1
+            uniform token info:id = "RealityKit.Collider"
+            uint mask = 4294967295
+            token type = "Default"
+
+            def RealityKitStruct "Shape"
+            {
+                float3 extent = (0.1, 0.1, 0.1)
+                token shapeType = "Box"
+
+                def RealityKitStruct "pose"
+                {
+                }
+            }
+        }
+
+        def RealityKitComponent "InputTarget"
+        {
+            uniform token info:id = "RealityKit.InputTarget"
+        }
+
+        def RealityKitCustomComponent "RealityKitContent_ToyComponent"
+        {
+            uniform token info:id = "RealityKitContent.ToyComponent"
+        }
+    }
+
+    def Xform "Box" (
+        active = true
+    )
+    {
+        def Cube "front" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (1.5707964, 0, 0)
+            }
+        )
+        {
+            reorder nameChildren = ["DefaultMaterial", "Pink_Plastic"]
+            rel material:binding = </Root/Box/front/Pink_Plastic> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            float2 ui:nodegraph:node:pos = (32.36331, 471.47977)
+            int ui:nodegraph:node:stackingOrder = 1
+            quatf xformOp:orient = (0.70710677, 0.70710677, 0, 0)
+            float3 xformOp:scale = (0.49999997, 0.0049999994, 0.099999994)
+            float3 xformOp:translate = (0, 0.048, -0.1225)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def "Pink_Plastic" (
+                active = true
+                references = @BlackABSPlastic.usdz@
+            )
+            {
+                color3f inputs:Basecolor_Tint = (0.894505, 0.6699909, 0.7479855) (
+                    colorSpace = "srgb_displayp3"
+                )
+            }
+        }
+
+        def Cube "back" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (1.5707964, 0, 0)
+            }
+        )
+        {
+            reorder nameChildren = ["DefaultMaterial", "Pink_Plastic"]
+            rel material:binding = </Root/Box/back/Pink_Plastic> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            float2 ui:nodegraph:node:pos = (52.36331, 491.47977)
+            int ui:nodegraph:node:stackingOrder = 2
+            quatf xformOp:orient = (0.70710677, 0.70710677, 0, 0)
+            float3 xformOp:scale = (0.49999988, 0.0049999985, 0.09999999)
+            float3 xformOp:translate = (0, 0.048, 0.1225)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def "Pink_Plastic" (
+                active = true
+                references = @BlackABSPlastic.usdz@
+            )
+            {
+                color3f inputs:Basecolor_Tint = (0.894505, 0.6699909, 0.7479855) (
+                    colorSpace = "srgb_displayp3"
+                )
+            }
+        }
+
+        def Cube "left" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (1.570796, 1.5707963, 0)
+            }
+        )
+        {
+            reorder nameChildren = ["DefaultMaterial", "Pink_Plastic"]
+            rel material:binding = </Root/Box/left/Pink_Plastic> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            float2 ui:nodegraph:node:pos = (72.36331, 511.47977)
+            int ui:nodegraph:node:stackingOrder = 3
+            quatf xformOp:orient = (0.5, 0.5, 0.49999997, -0.49999997)
+            float3 xformOp:scale = (0.24999999, 0.0049999976, 0.099999994)
+            float3 xformOp:translate = (-0.25, 0.048, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def "Pink_Plastic" (
+                active = true
+                references = @BlackABSPlastic.usdz@
+            )
+            {
+                color3f inputs:Basecolor_Tint = (0.894505, 0.6699909, 0.7479855) (
+                    colorSpace = "srgb_displayp3"
+                )
+            }
+        }
+
+        def Cube "right" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (1.570796, 1.5707963, 0)
+            }
+        )
+        {
+            reorder nameChildren = ["DefaultMaterial", "Pink_Plastic"]
+            rel material:binding = </Root/Box/right/Pink_Plastic> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            float2 ui:nodegraph:node:pos = (92.36331, 531.47974)
+            int ui:nodegraph:node:stackingOrder = 4
+            quatf xformOp:orient = (0.50000006, 0.4999999, 0.5, -0.5)
+            float3 xformOp:scale = (0.25, 0.004999998, 0.1)
+            float3 xformOp:translate = (0.25, 0.048, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def "Pink_Plastic" (
+                active = true
+                references = @BlackABSPlastic.usdz@
+            )
+            {
+                color3f inputs:Basecolor_Tint = (0.894505, 0.6699909, 0.7479855) (
+                    colorSpace = "srgb_displayp3"
+                )
+            }
+        }
+
+        def RealityKitComponent "Collider"
+        {
+            uint group = 1
+            uniform token info:id = "RealityKit.Collider"
+            uint mask = 4294967295
+            token type = "Default"
+
+            def RealityKitStruct "Shape"
+            {
+                float3 extent = (0.505, 0.10050002, 0.25000003)
+                token shapeType = "Box"
+
+                def RealityKitStruct "pose"
+                {
+                    float3 position = (0, 0.04775001, 0)
+                }
+            }
+        }
+
+        def RealityKitComponent "InputTarget"
+        {
+            uniform token info:id = "RealityKit.InputTarget"
+        }
+
+        def Cube "base" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (0, 0, 0)
+            }
+        )
+        {
+            reorder nameChildren = ["DefaultMaterial", "Pink_Plastic"]
+            rel material:binding = </Root/Box/base/Pink_Plastic> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double size = 1
+            float2 ui:nodegraph:node:pos = (52.36331, 491.47977)
+            int ui:nodegraph:node:stackingOrder = 2
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.49999994, 0.004999999, 0.25)
+            float3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def "Pink_Plastic" (
+                active = true
+                references = @BlackABSPlastic.usdz@
+            )
+            {
+                color3f inputs:Basecolor_Tint = (0.894505, 0.6699909, 0.7479855) (
+                    colorSpace = "srgb_displayp3"
+                )
+            }
+
+            def RealityKitComponent "Collider"
+            {
+                uint group = 1
+                uniform token info:id = "RealityKit.Collider"
+                uint mask = 4294967295
+                token type = "Default"
+
+                def RealityKitStruct "Shape"
+                {
+                    float3 extent = (1, 1, 1)
+                    token shapeType = "Box"
+
+                    def RealityKitStruct "pose"
+                    {
+                    }
+                }
+            }
+        }
+    }
+}
+
