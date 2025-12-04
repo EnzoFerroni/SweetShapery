@@ -10,24 +10,21 @@ import SwiftUI
 @main
 struct CookieCutterApp: App {
 
-    @State private var appModel = AppModel()
+    @State private var viewModel = CookieCutterViewModel()
+    @State private var immersionStyle: ImmersionStyle = .mixed
 
     var body: some Scene {
+        // Control Panel Window
         WindowGroup {
-            ContentView()
-                .environment(appModel)
+            ControlPanelView()
+                .environment(viewModel)
         }
-
-        ImmersiveSpace(id: appModel.immersiveSpaceID) {
-            ImmersiveView()
-                .environment(appModel)
-                .onAppear {
-                    appModel.immersiveSpaceState = .open
-                }
-                .onDisappear {
-                    appModel.immersiveSpaceState = .closed
-                }
+        .windowResizability(.contentSize)
+        
+        // Immersive Space for 3D Cookie Cutter
+        ImmersiveSpace(id: "CutterSpace") {
+            ImmersiveCutterView(viewModel: viewModel)
         }
-        .immersionStyle(selection: .constant(.mixed), in: .mixed)
-     }
+        .immersionStyle(selection: $immersionStyle, in: .mixed)
+    }
 }
