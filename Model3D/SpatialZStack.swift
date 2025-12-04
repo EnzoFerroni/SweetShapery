@@ -1,16 +1,32 @@
 //
-//  Example036.swift
+//  SpatialZStack.swift
 //  Model3D
 //
 //  Created by Enzo Ferroni on 03/12/25.
 //
+
 import SwiftUI
 
-struct SpatialZStack: View {
+// MARK: - Spatial ZStack Demo
 
+/*
+ Demonstrates three different approaches to create depth in ZStack layouts:
+ 1. Using ZStack spacing to evenly distribute views in depth
+ 2. Using Spacers to push views to front/back of the depth range
+ 3. Using individual frame depth on each child view
+*/
+struct SpatialZStack: View {
+    
+    // MARK: - State Properties
+    
     @State var spacing: CGFloat = 0.0
+    
+    // MARK: - Body
+    
     var body: some View {
         VStack(spacing: 24) {
+            
+            // Slider to control depth spacing for all examples
             Slider(value: $spacing,
                    in: 0...100,
                    minimumValueLabel: Image(systemName: "square.fill"),
@@ -22,7 +38,8 @@ struct SpatialZStack: View {
 
             HStack {
 
-                // 1. Space views evenly in the ZStack. Spacing is controlled by the parent ZStack
+                // MARK: - Approach 1: ZStack Spacing
+                // Space views evenly in depth using parent ZStack spacing property
                 ZStack(spacing: spacing / 3) {
                     RoundedRectangle(cornerRadius: 12.0)
                         .foregroundStyle(.red)
@@ -38,20 +55,22 @@ struct SpatialZStack: View {
                 }
                 .frame(depth: spacing)
 
-
-                // 2. Use Spacers to fill all available space in the ZStack
+                // MARK: - Approach 2: Spacers
+                // Use Spacers to fill available depth space in ZStack
                 ZStack() {
                     RoundedRectangle(cornerRadius: 12.0)
                         .foregroundStyle(.red)
                         .frame(width: 200, height: 200)
 
-                    Spacer() // this spaces pushes the first view all the way to the back
+                    // Pushes the first view to the back
+                    Spacer()
 
                     RoundedRectangle(cornerRadius: 12.0)
                         .foregroundStyle(.green)
                         .frame(width: 150, height: 150)
 
-                    Spacer() // this spacer pushes the last view all the way to the front
+                    // Pushes the last view to the front
+                    Spacer()
 
                     RoundedRectangle(cornerRadius: 12.0)
                         .foregroundStyle(.blue)
@@ -59,7 +78,8 @@ struct SpatialZStack: View {
                 }
                 .frame(depth: spacing)
 
-                // 3. Each child view has a depth value that takes up 1/3 of the ZStack depth
+                // MARK: - Approach 3: Individual Depth
+                // Each child view defines its own depth allocation
                 ZStack() {
                     RoundedRectangle(cornerRadius: 12.0)
                         .foregroundStyle(.red)

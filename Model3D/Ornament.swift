@@ -173,6 +173,8 @@ struct Ornament: View {
                 }
             }
             .padding(100)
+            // MARK: - Ornament Modifier
+            // Attaches a floating ornament to the window with configurable properties
             .ornament(
                 visibility: ornamentVisibility,
                 attachmentAnchor: .scene(ornamentAnchor),
