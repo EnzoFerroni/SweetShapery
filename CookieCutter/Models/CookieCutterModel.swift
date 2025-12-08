@@ -36,8 +36,8 @@ struct CookieCutterItem: Identifiable {
     var shape: CutterShape
     var scale: Float
     
-    static let minScale: Float = 0.5
-    static let maxScale: Float = 2.0
+    static let minScale: Float = 0.1
+    static let maxScale: Float = 5.0
     static let defaultScale: Float = 1.0
     
     init(shape: CutterShape, scale: Float = CookieCutterItem.defaultScale) {

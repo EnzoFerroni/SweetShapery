@@ -8,18 +8,23 @@
 import SwiftUI
 import Observation
 
-/// ViewModel for managing cookie cutter selection and scaling
+/// ViewModel for managing cookie cutter selection, scaling and rotation
 @MainActor
 @Observable
 class CookieCutterViewModel {
     
     var selectedShape: CutterShape = .circle
     var currentScale: Float = CookieCutterItem.defaultScale
+    var rotationAngle: Float = 0.0
     
     // MARK: - Computed Properties
     
     var scalePercentage: Int {
         return Int(currentScale * 100)
+    }
+    
+    var rotationDegrees: Int {
+        return Int(rotationAngle)
     }
     
     var minScale: Float {
@@ -34,11 +39,12 @@ class CookieCutterViewModel {
         return CutterShape.allCases
     }
     
-    // MARK: - Public Methods
+    // MARK: - Scale Methods
     
     func selectShape(_ shape: CutterShape) {
         selectedShape = shape
         resetScale()
+        resetRotation()
     }
     
     func setScale(_ value: Float) {
@@ -55,5 +61,25 @@ class CookieCutterViewModel {
     
     func resetScale() {
         currentScale = CookieCutterItem.defaultScale
+    }
+    
+    // MARK: - Rotation Methods
+    
+    func rotateLeft() {
+        rotationAngle -= 15.0
+        if rotationAngle < 0 {
+            rotationAngle += 360.0
+        }
+    }
+    
+    func rotateRight() {
+        rotationAngle += 15.0
+        if rotationAngle >= 360 {
+            rotationAngle -= 360.0
+        }
+    }
+    
+    func resetRotation() {
+        rotationAngle = 0.0
     }
 }
