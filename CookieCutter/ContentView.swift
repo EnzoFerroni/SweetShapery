@@ -18,18 +18,21 @@ struct ControlPanelView: View {
     @State private var isImmersiveSpaceOpen = false
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 20) {
             Text("Cookie Cutter")
                 .font(.largeTitle)
                 .fontWeight(.bold)
             
-            Text("Select a shape and adjust the size")
+            Text("Select a shape and adjust size/rotation")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
             
             ShapeSelectorView(viewModel: viewModel)
             
-            ScaleControlView(viewModel: viewModel)
+            HStack(spacing: 16) {
+                ScaleControlView(viewModel: viewModel)
+                RotationControlView(viewModel: viewModel)
+            }
             
             Button {
                 Task {
@@ -81,8 +84,13 @@ struct ImmersiveCutterView: View {
             entity.model = ModelComponent(mesh: mesh, materials: [material])
             entity.collision = CollisionComponent(shapes: [ShapeResource.generateConvex(from: mesh)])
             
+            // Apply scale
             let scale = viewModel.currentScale
             entity.scale = SIMD3<Float>(scale, scale, scale)
+            
+            // Apply rotation from ViewModel (Y-axis rotation)
+            let radians = viewModel.rotationAngle * .pi / 180.0
+            entity.orientation = simd_quatf(angle: radians, axis: SIMD3<Float>(0, 1, 0))
         }
         .gesture(dragGesture)
         .gesture(rotateGesture)
