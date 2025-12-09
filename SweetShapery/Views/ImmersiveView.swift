@@ -23,13 +23,13 @@ struct ImmersiveView: View {
     @State private var rootEntity: Entity?
     
     /// Starting position for drag gesture.
-    @State private var dragStartPosition: SIMD3<Float> = .zero
+    @State private var dragStartPosition: SIMD3<Float>? = nil
     
     /// Starting scale for magnify gesture.
-    @State private var startScale: SIMD3<Float> = .one
+    @State private var startScale: SIMD3<Float>? = nil
     
     /// Starting orientation for rotate gesture.
-    @State private var startOrientation: simd_quatf = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
+    @State private var startOrientation: simd_quatf? = nil
     
     var body: some View {
         RealityView { content in
@@ -43,8 +43,7 @@ struct ImmersiveView: View {
             await loadModel(into: root)
         }
         .gesture(dragGesture)
-        .gesture(magnifyGesture)
-        .gesture(rotateGesture)
+        .simultaneousGesture(scaleAndRotateGesture)
         .onChange(of: viewModel.selectedShape) {
             Task { await reloadModel() }
         }
@@ -70,13 +69,15 @@ struct ImmersiveView: View {
             .onChanged { value in
                 guard let entity = self.entity else { return }
                 
-                if dragStartPosition == .zero {
+                if dragStartPosition == nil {
                     dragStartPosition = entity.position(relativeTo: nil)
                 }
                 
+                guard let startPos = dragStartPosition else { return }
+                
                 let translation = value.convert(value.translation3D, from: .local, to: .scene)
                 
-                let newPosition = dragStartPosition + SIMD3<Float>(
+                let newPosition = startPos + SIMD3<Float>(
                     Float(translation.x),
                     Float(translation.y),
                     Float(translation.z)
@@ -85,7 +86,7 @@ struct ImmersiveView: View {
                 entity.setPosition(newPosition, relativeTo: nil)
             }
             .onEnded { _ in
-                dragStartPosition = .zero
+                dragStartPosition = nil
             }
     }
     
@@ -96,15 +97,17 @@ struct ImmersiveView: View {
             .onChanged { value in
                 guard let entity = self.entity else { return }
                 
-                if startScale == .one {
+                if startScale == nil {
                     startScale = entity.scale
                 }
                 
+                guard let scale = startScale else { return }
+                
                 let magnification = Float(value.magnification)
-                entity.scale = startScale * magnification
+                entity.scale = scale * magnification
             }
             .onEnded { _ in
-                startScale = .one
+                startScale = nil
             }
     }
     
@@ -115,9 +118,11 @@ struct ImmersiveView: View {
             .onChanged { value in
                 guard let entity = self.entity else { return }
                 
-                if startOrientation == simd_quatf(ix: 0, iy: 0, iz: 0, r: 1) {
+                if startOrientation == nil {
                     startOrientation = entity.orientation(relativeTo: nil)
                 }
+                
+                guard let orientation = startOrientation else { return }
                 
                 let rotation = value.rotation
                 let flippedRotation = Rotation3D(
@@ -129,12 +134,61 @@ struct ImmersiveView: View {
                     )
                 )
                 
-                let startRot = Rotation3D(startOrientation)
+                let startRot = Rotation3D(orientation)
                 let newOrientation = startRot.rotated(by: flippedRotation)
                 entity.setOrientation(simd_quatf(newOrientation), relativeTo: nil)
             }
             .onEnded { _ in
-                startOrientation = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
+                startOrientation = nil
+            }
+    }
+    
+    /// Combined scale and rotate gesture for two-hand manipulation.
+    private var scaleAndRotateGesture: some Gesture {
+        MagnifyGesture()
+            .simultaneously(with: RotateGesture3D())
+            .targetedToAnyEntity()
+            .onChanged { value in
+                guard let entity = self.entity else { return }
+                
+                // Handle magnify (scale)
+                if let magnifyValue = value.first {
+                    if startScale == nil {
+                        startScale = entity.scale
+                    }
+                    
+                    if let scale = startScale {
+                        let magnification = Float(magnifyValue.magnification)
+                        entity.scale = scale * magnification
+                    }
+                }
+                
+                // Handle rotation
+                if let rotateValue = value.second {
+                    if startOrientation == nil {
+                        startOrientation = entity.orientation(relativeTo: nil)
+                    }
+                    
+                    if let orientation = startOrientation {
+                        let rotation = rotateValue.rotation
+                        let flippedRotation = Rotation3D(
+                            angle: rotation.angle,
+                            axis: RotationAxis3D(
+                                x: -rotation.axis.x,
+                                y: rotation.axis.y,
+                                z: -rotation.axis.z
+                            )
+                        )
+                        
+                        let startRot = Rotation3D(orientation)
+                        let newOrientation = startRot.rotated(by: flippedRotation)
+                        entity.setOrientation(simd_quatf(newOrientation), relativeTo: nil)
+                    }
+                }
+            }
+            .onEnded { _ in
+                startScale = nil
+                startOrientation = nil
             }
     }
     
@@ -152,9 +206,9 @@ struct ImmersiveView: View {
             return
         }
         
-        // Setup for gestures
+        // Setup for gestures - allow all input types for full gesture support
         loadedEntity.generateCollisionShapes(recursive: true)
-        loadedEntity.components.set(InputTargetComponent(allowedInputTypes: .indirect))
+        loadedEntity.components.set(InputTargetComponent(allowedInputTypes: .all))
         loadedEntity.components.set(HoverEffectComponent())
         
         // Apply initial scale and material
