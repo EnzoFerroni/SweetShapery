@@ -11,27 +11,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C6F678D02EE0D25B00958873 /* CookieCutter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookieCutter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6F678D02EE0D25B00958873 /* SweetShapery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SweetShapery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6F678D42EE0D25B00958873 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		C6F678E02EE0D25C00958873 /* Exceptions for "CookieCutter" folder in "CookieCutter" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = C6F678CF2EE0D25B00958873 /* CookieCutter */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		C6F678D22EE0D25B00958873 /* CookieCutter */ = {
+		C659A7892EE7A2B0008A5B64 /* SweetShapery */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				C6F678E02EE0D25C00958873 /* Exceptions for "CookieCutter" folder in "CookieCutter" target */,
-			);
-			path = CookieCutter;
+			path = SweetShapery;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -51,7 +38,7 @@
 		C6F678C72EE0D25B00958873 = {
 			isa = PBXGroup;
 			children = (
-				C6F678D22EE0D25B00958873 /* CookieCutter */,
+				C659A7892EE7A2B0008A5B64 /* SweetShapery */,
 				C6F678D32EE0D25B00958873 /* Packages */,
 				C6F678D12EE0D25B00958873 /* Products */,
 			);
@@ -60,7 +47,7 @@
 		C6F678D12EE0D25B00958873 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C6F678D02EE0D25B00958873 /* CookieCutter.app */,
+				C6F678D02EE0D25B00958873 /* SweetShapery.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -76,9 +63,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C6F678CF2EE0D25B00958873 /* CookieCutter */ = {
+		C6F678CF2EE0D25B00958873 /* SweetShapery */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C6F678E12EE0D25C00958873 /* Build configuration list for PBXNativeTarget "CookieCutter" */;
+			buildConfigurationList = C6F678E12EE0D25C00958873 /* Build configuration list for PBXNativeTarget "SweetShapery" */;
 			buildPhases = (
 				C6F678CC2EE0D25B00958873 /* Sources */,
 				C6F678CD2EE0D25B00958873 /* Frameworks */,
@@ -89,14 +76,14 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				C6F678D22EE0D25B00958873 /* CookieCutter */,
+				C659A7892EE7A2B0008A5B64 /* SweetShapery */,
 			);
-			name = CookieCutter;
+			name = SweetShapery;
 			packageProductDependencies = (
 				C6F678D52EE0D25B00958873 /* RealityKitContent */,
 			);
-			productName = CookieCutter;
-			productReference = C6F678D02EE0D25B00958873 /* CookieCutter.app */;
+			productName = SweetShapery;
+			productReference = C6F678D02EE0D25B00958873 /* SweetShapery.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -114,7 +101,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C6F678CB2EE0D25B00958873 /* Build configuration list for PBXProject "CookieCutter" */;
+			buildConfigurationList = C6F678CB2EE0D25B00958873 /* Build configuration list for PBXProject "SweetShapery" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -128,7 +115,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C6F678CF2EE0D25B00958873 /* CookieCutter */,
+				C6F678CF2EE0D25B00958873 /* SweetShapery */,
 			);
 		};
 /* End PBXProject section */
@@ -164,13 +151,13 @@
 				DEVELOPMENT_TEAM = JC55C9UADF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_FILE = "Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.AppleDeveloperAcademyMackenzie.CookieCutter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AppleDeveloperAcademyMackenzie.SweetShapery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "xros xrsimulator";
@@ -193,13 +180,13 @@
 				DEVELOPMENT_TEAM = JC55C9UADF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_FILE = "Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.AppleDeveloperAcademyMackenzie.CookieCutter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AppleDeveloperAcademyMackenzie.SweetShapery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "xros xrsimulator";
@@ -336,7 +323,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C6F678CB2EE0D25B00958873 /* Build configuration list for PBXProject "CookieCutter" */ = {
+		C6F678CB2EE0D25B00958873 /* Build configuration list for PBXProject "SweetShapery" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C6F678E42EE0D25C00958873 /* Debug */,
@@ -345,7 +332,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C6F678E12EE0D25C00958873 /* Build configuration list for PBXNativeTarget "CookieCutter" */ = {
+		C6F678E12EE0D25C00958873 /* Build configuration list for PBXNativeTarget "SweetShapery" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C6F678E22EE0D25C00958873 /* Debug */,
