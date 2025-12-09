@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C6F678CF2EE0D25B00958873"
-               BuildableName = "CookieCutter.app"
-               BlueprintName = "CookieCutter"
-               ReferencedContainer = "container:CookieCutter.xcodeproj">
+               BuildableName = "SweetShapery.app"
+               BlueprintName = "SweetShapery"
+               ReferencedContainer = "container:SweetShapery.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C6F678CF2EE0D25B00958873"
-            BuildableName = "CookieCutter.app"
-            BlueprintName = "CookieCutter"
-            ReferencedContainer = "container:CookieCutter.xcodeproj">
+            BuildableName = "SweetShapery.app"
+            BlueprintName = "SweetShapery"
+            ReferencedContainer = "container:SweetShapery.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C6F678CF2EE0D25B00958873"
-            BuildableName = "CookieCutter.app"
-            BlueprintName = "CookieCutter"
-            ReferencedContainer = "container:CookieCutter.xcodeproj">
+            BuildableName = "SweetShapery.app"
+            BlueprintName = "SweetShapery"
+            ReferencedContainer = "container:SweetShapery.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

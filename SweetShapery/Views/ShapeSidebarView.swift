@@ -23,7 +23,7 @@ struct ShapeSidebarView: View {
                 label: {
                     Image(systemName: shape.icon)
                         .font(.title2)
-                        .foregroundStyle(viewModel.selectedShape == shape ? .green : .white)
+                        .foregroundStyle(viewModel.selectedShape == shape ? .accent : .white)
                         .frame(width: 44, height: 44)
                 }
                 .buttonStyle(.plain)

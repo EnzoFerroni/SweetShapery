@@ -30,7 +30,7 @@ struct ControlsView: View {
                 Spacer()
                 Toggle("", isOn: $isImmersiveOpen)
                     .labelsHidden()
-                    .tint(.green)
+                    .tint(.accent)
                     .onChange(of: isImmersiveOpen) { _, newValue in
                         if newValue {
                             openSpace()

@@ -16,7 +16,7 @@ class ShapeViewModel {
     // MARK: - Shape Properties
     
     /// Currently selected shape to display.
-    var selectedShape: CutterShape = .star
+    var selectedShape: CutterShape = .circle
     
     /// Scale of the 3D model (0.1 to 3.0).
     var scale: Float = 1.0
