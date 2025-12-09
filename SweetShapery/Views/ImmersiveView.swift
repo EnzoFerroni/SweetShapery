@@ -10,7 +10,7 @@ import RealityKit
 import RealityKitContent
 
 /// Immersive view that displays the 3D cookie cutter model.
-/// Supports drag, rotate, and scale gestures using the GestureComponent system.
+/// Supports drag, rotate, and scale gestures.
 struct ImmersiveView: View {
     
     /// Reference to the shared view model.
@@ -21,6 +21,15 @@ struct ImmersiveView: View {
     
     /// Root entity that holds the model (used for positioning).
     @State private var rootEntity: Entity?
+    
+    /// Starting position for drag gesture.
+    @State private var dragStartPosition: SIMD3<Float> = .zero
+    
+    /// Starting scale for magnify gesture.
+    @State private var startScale: SIMD3<Float> = .one
+    
+    /// Starting orientation for rotate gesture.
+    @State private var startOrientation: simd_quatf = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
     
     var body: some View {
         RealityView { content in
@@ -33,7 +42,9 @@ struct ImmersiveView: View {
             // Load the initial 3D model
             await loadModel(into: root)
         }
-        .installGestures()
+        .gesture(dragGesture)
+        .gesture(magnifyGesture)
+        .gesture(rotateGesture)
         .onChange(of: viewModel.selectedShape) {
             Task { await reloadModel() }
         }
@@ -48,6 +59,83 @@ struct ImmersiveView: View {
         .onChange(of: viewModel.rotationX) { updateRotation() }
         .onChange(of: viewModel.rotationY) { updateRotation() }
         .onChange(of: viewModel.rotationZ) { updateRotation() }
+    }
+    
+    // MARK: - Gestures
+    
+    /// Drag gesture for moving the 3D model.
+    private var dragGesture: some Gesture {
+        DragGesture()
+            .targetedToAnyEntity()
+            .onChanged { value in
+                guard let entity = self.entity else { return }
+                
+                if dragStartPosition == .zero {
+                    dragStartPosition = entity.position(relativeTo: nil)
+                }
+                
+                let translation = value.convert(value.translation3D, from: .local, to: .scene)
+                
+                let newPosition = dragStartPosition + SIMD3<Float>(
+                    Float(translation.x),
+                    Float(translation.y),
+                    Float(translation.z)
+                )
+                
+                entity.setPosition(newPosition, relativeTo: nil)
+            }
+            .onEnded { _ in
+                dragStartPosition = .zero
+            }
+    }
+    
+    /// Magnify gesture for scaling the 3D model.
+    private var magnifyGesture: some Gesture {
+        MagnifyGesture()
+            .targetedToAnyEntity()
+            .onChanged { value in
+                guard let entity = self.entity else { return }
+                
+                if startScale == .one {
+                    startScale = entity.scale
+                }
+                
+                let magnification = Float(value.magnification)
+                entity.scale = startScale * magnification
+            }
+            .onEnded { _ in
+                startScale = .one
+            }
+    }
+    
+    /// Rotate gesture for rotating the 3D model.
+    private var rotateGesture: some Gesture {
+        RotateGesture3D()
+            .targetedToAnyEntity()
+            .onChanged { value in
+                guard let entity = self.entity else { return }
+                
+                if startOrientation == simd_quatf(ix: 0, iy: 0, iz: 0, r: 1) {
+                    startOrientation = entity.orientation(relativeTo: nil)
+                }
+                
+                let rotation = value.rotation
+                let flippedRotation = Rotation3D(
+                    angle: rotation.angle,
+                    axis: RotationAxis3D(
+                        x: -rotation.axis.x,
+                        y: rotation.axis.y,
+                        z: -rotation.axis.z
+                    )
+                )
+                
+                let startRot = Rotation3D(startOrientation)
+                let newOrientation = startRot.rotated(by: flippedRotation)
+                entity.setOrientation(simd_quatf(newOrientation), relativeTo: nil)
+            }
+            .onEnded { _ in
+                startOrientation = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
+            }
     }
     
     // MARK: - Model Loading
@@ -68,15 +156,6 @@ struct ImmersiveView: View {
         loadedEntity.generateCollisionShapes(recursive: true)
         loadedEntity.components.set(InputTargetComponent(allowedInputTypes: .indirect))
         loadedEntity.components.set(HoverEffectComponent())
-        
-        // Add GestureComponent for drag, scale, and rotate gestures
-        var gestureComponent = GestureComponent()
-        gestureComponent.canDrag = true
-        gestureComponent.canScale = true
-        gestureComponent.canRotate = true
-        gestureComponent.pivotOnDrag = true
-        gestureComponent.preserveOrientationOnPivotDrag = false
-        loadedEntity.components.set(gestureComponent)
         
         // Apply initial scale and material
         loadedEntity.scale = SIMD3<Float>(repeating: viewModel.scale)
