@@ -10,7 +10,7 @@ import RealityKit
 import RealityKitContent
 
 /// Immersive view that displays the 3D cookie cutter model.
-/// Supports drag gestures, transparency, scale, and rotation.
+/// Supports drag, rotate, and scale gestures using the GestureComponent system.
 struct ImmersiveView: View {
     
     /// Reference to the shared view model.
@@ -21,9 +21,6 @@ struct ImmersiveView: View {
     
     /// Root entity that holds the model (used for positioning).
     @State private var rootEntity: Entity?
-    
-    /// Starting position for drag gesture calculations.
-    @State private var dragStartPosition: SIMD3<Float> = .zero
     
     var body: some View {
         RealityView { content in
@@ -36,7 +33,7 @@ struct ImmersiveView: View {
             // Load the initial 3D model
             await loadModel(into: root)
         }
-        .gesture(dragGesture)
+        .installGestures()
         .onChange(of: viewModel.selectedShape) {
             Task { await reloadModel() }
         }
@@ -60,14 +57,26 @@ struct ImmersiveView: View {
         let modelName = viewModel.selectedShape.fileName
         
         // Try to load the model
-        guard let loadedEntity = try? await Entity(named: modelName, in: realityKitContentBundle) else {
+        guard let loadedEntity = try? await Entity(
+            named: modelName,
+            in: realityKitContentBundle
+        ) else {
             return
         }
         
-        // Setup for gestures (order matters!)
+        // Setup for gestures
         loadedEntity.generateCollisionShapes(recursive: true)
         loadedEntity.components.set(InputTargetComponent(allowedInputTypes: .indirect))
         loadedEntity.components.set(HoverEffectComponent())
+        
+        // Add GestureComponent for drag, scale, and rotate gestures
+        var gestureComponent = GestureComponent()
+        gestureComponent.canDrag = true
+        gestureComponent.canScale = true
+        gestureComponent.canRotate = true
+        gestureComponent.pivotOnDrag = true
+        gestureComponent.preserveOrientationOnPivotDrag = false
+        loadedEntity.components.set(gestureComponent)
         
         // Apply initial scale and material
         loadedEntity.scale = SIMD3<Float>(repeating: viewModel.scale)
@@ -128,35 +137,5 @@ struct ImmersiveView: View {
         let rotZ = simd_quatf(angle: viewModel.rotationZ * .pi / 180, axis: [0, 0, 1])
         
         entity.orientation = rotX * rotY * rotZ
-    }
-    
-    // MARK: - Gestures
-    
-    /// Drag gesture for moving the 3D model.
-    private var dragGesture: some Gesture {
-        DragGesture()
-            .targetedToAnyEntity()
-            .onChanged { value in
-                guard let rootEntity else { return }
-                
-                // Save start position on first drag event
-                if dragStartPosition == .zero {
-                    dragStartPosition = rootEntity.position
-                }
-                
-                // Convert gesture translation to scene coordinates
-                let translation = value.convert(value.translation3D, from: .local, to: .scene)
-                
-                // Move from start position
-                rootEntity.position = dragStartPosition + SIMD3<Float>(
-                    Float(translation.x),
-                    Float(translation.y),
-                    Float(translation.z)
-                )
-            }
-            .onEnded { _ in
-                // Reset for next gesture
-                dragStartPosition = .zero
-            }
     }
 }
