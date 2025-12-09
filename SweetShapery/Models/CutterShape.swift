@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Represents the available cookie cutter shapes in the app.
 enum CutterShape: String, CaseIterable, Identifiable {
     case star
     case gingerbread
@@ -15,8 +16,10 @@ enum CutterShape: String, CaseIterable, Identifiable {
     case pentagon
     case octagon
     
+    /// Unique identifier for the shape.
     var id: String { rawValue }
     
+    /// Display name shown in the UI.
     var displayName: String {
         switch self {
         case .star: return "Star"
@@ -28,6 +31,7 @@ enum CutterShape: String, CaseIterable, Identifiable {
         }
     }
     
+    /// SF Symbol icon for the shape.
     var icon: String {
         switch self {
         case .star: return "star.fill"
@@ -39,14 +43,8 @@ enum CutterShape: String, CaseIterable, Identifiable {
         }
     }
     
+    /// 3D model file name in RealityKitContent bundle.
     var fileName: String {
-        switch self {
-        case .star: return "star"
-        case .gingerbread: return "gingerbread"
-        case .xmasTree: return "xmasTree"
-        case .hexagon: return "hexagon"
-        case .pentagon: return "pentagon"
-        case .octagon: return "octagon"
-        }
+        rawValue
     }
 }

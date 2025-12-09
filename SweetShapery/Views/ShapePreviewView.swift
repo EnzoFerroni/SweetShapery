@@ -7,16 +7,20 @@
 
 import SwiftUI
 
+/// Displays a preview of the selected shape with its icon and name.
 struct ShapePreviewView: View {
     
+    /// The shape to preview.
     let shape: CutterShape
     
     var body: some View {
         VStack(spacing: 8) {
+            // Shape name
             Text(shape.displayName)
                 .font(.headline)
                 .foregroundStyle(.secondary)
             
+            // Shape icon
             Image(systemName: shape.icon)
                 .font(.system(size: 80))
                 .foregroundStyle(.white)

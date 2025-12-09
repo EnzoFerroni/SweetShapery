@@ -7,13 +7,16 @@
 
 import SwiftUI
 
+/// Sidebar with buttons to select different shapes.
 struct ShapeSidebarView: View {
     
+    /// Reference to the shared view model.
     @Bindable var viewModel: ShapeViewModel
     
     var body: some View {
         VStack(spacing: 8) {
             ForEach(viewModel.allShapes) { shape in
+                // Shape selection button
                 Button {
                     viewModel.selectedShape = shape
                 }
