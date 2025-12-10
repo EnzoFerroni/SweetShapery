@@ -37,7 +37,7 @@ struct ContentView: View {
             }
             
             // Rotation controls (simulator testing only)
-//            RotationControlView(viewModel: viewModel)
+            RotationControlView(viewModel: viewModel)
         }
         .padding(24)
         .ornament(attachmentAnchor: .scene(.leading)) {
