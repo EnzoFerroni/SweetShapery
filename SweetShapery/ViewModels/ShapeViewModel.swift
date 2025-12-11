@@ -51,3 +51,6 @@ class ShapeViewModel {
         rotationZ = 0.0
     }
 }
+
+// MARK: - [REVIEW]
+/// Cuidado com níveis de acesso implícitos (`var` vs. `private var`).

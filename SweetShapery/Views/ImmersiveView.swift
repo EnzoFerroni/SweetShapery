@@ -160,3 +160,7 @@ struct ImmersiveView: View {
             }
     }
 }
+
+// MARK: - [REVIEW]
+/// Código bem organizado, apenas atenção a
+/// métodos definidos diretamente dentro de views.

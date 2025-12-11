@@ -31,3 +31,8 @@ struct SweetShaperyApp: App {
         .immersionStyle(selection: $immersionStyle, in: .mixed)
     }
 }
+
+// MARK: - [REVIEW]
+/// De modo geral, o código está bem organizado e documentado.
+/// Comentários pontuais feitos em alguns arquivos, principalmente
+/// relacionados a detalhes de estilo e controle de acesso.

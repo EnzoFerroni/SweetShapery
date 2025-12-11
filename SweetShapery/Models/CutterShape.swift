@@ -54,3 +54,12 @@ enum CutterShape: String, CaseIterable, Identifiable {
         rawValue
     }
 }
+
+// MARK: - [REVIEW]
+/// Bom uso de enums e variáveis computadas.
+///
+/// Na definição dos cases, em situações de menor quantidade,
+/// pode ser interessante comprimir a definição em uma linha única:
+/// `case circle, square, pentagon`
+///
+/// Cuidado com níveis de acesso implícitos (`var` vs. `private var`).
