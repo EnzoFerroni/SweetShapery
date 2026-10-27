@@ -14,15 +14,15 @@ A visionOS app for previewing holiday cookie-cutter shapes in 3D, inside a full 
 - [Built With](#built-with)
 - [Getting Started](#getting-started)
 - [Project Structure](#project-structure)
-- [Author](#author)
+- [Team](#team)
 - [License](#license)
 
 ## About
 
 SweetShapery lets you pick a cookie-cutter shape from a sidebar and inspect it as a
 3D model floating in your space. The models were built in Reality Composer Pro and
-loaded through a local `RealityKitContent` package. It was built as a short Apple
-Vision Pro prototype at the Apple Developer Academy | Mackenzie.
+loaded through a local `RealityKitContent` package. It was built by a team of three as a
+short Apple Vision Pro prototype at the Apple Developer Academy | Mackenzie.
 
 ## Features
 
@@ -62,12 +62,24 @@ SweetShapery/
 Packages/RealityKitContent/    3D models and Reality Composer Pro scene
 ```
 
-## Author
+## Team
 
 <div align="center">
   <table>
     <tr>
-      <td align="center" width="100%">
+      <td align="center" width="33%">
+        <a href="https://github.com/carolssun"><img src="https://github.com/carolssun.png" width="90" alt="Carolina Sun"/></a>
+        <br/><sub><b>Carolina Sun</b></sub><br/><br/>
+        <a href="https://github.com/carolssun"><img src="https://skillicons.dev/icons?i=github" alt="GitHub"/></a>
+        <a href="https://www.linkedin.com/in/carolina-sun/"><img src="https://skillicons.dev/icons?i=linkedin" alt="LinkedIn"/></a>
+      </td>
+      <td align="center" width="33%">
+        <a href="https://github.com/EmanuelaCaetano"><img src="https://github.com/EmanuelaCaetano.png" width="90" alt="Emanuela Caetano"/></a>
+        <br/><sub><b>Emanuela Caetano</b></sub><br/><br/>
+        <a href="https://github.com/EmanuelaCaetano"><img src="https://skillicons.dev/icons?i=github" alt="GitHub"/></a>
+        <a href="https://www.linkedin.com/in/emanuela-caetano/"><img src="https://skillicons.dev/icons?i=linkedin" alt="LinkedIn"/></a>
+      </td>
+      <td align="center" width="33%">
         <a href="https://github.com/EnzoFerroni"><img src="https://github.com/EnzoFerroni.png" width="90" alt="Enzo Ferroni"/></a>
         <br/><sub><b>Enzo Ferroni</b></sub><br/><br/>
         <a href="https://github.com/EnzoFerroni"><img src="https://skillicons.dev/icons?i=github" alt="GitHub"/></a>
@@ -79,4 +91,5 @@ Packages/RealityKitContent/    3D models and Reality Composer Pro scene
 
 ## License
 
-Released under the [MIT License](LICENSE). Copyright (c) 2025 Enzo Ferroni.
+Released under the [MIT License](LICENSE). Copyright (c) 2025 Carolina Sun, Emanuela
+Caetano and Enzo Ferroni.
