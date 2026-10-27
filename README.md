@@ -14,6 +14,7 @@ A visionOS app for previewing holiday cookie-cutter shapes in 3D, inside a full 
 - [Built With](#built-with)
 - [Getting Started](#getting-started)
 - [Project Structure](#project-structure)
+- [Author](#author)
 - [License](#license)
 
 ## About
@@ -60,6 +61,21 @@ SweetShapery/
 └── Views/                     Sidebar, preview, controls, immersive view
 Packages/RealityKitContent/    3D models and Reality Composer Pro scene
 ```
+
+## Author
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="100%">
+        <a href="https://github.com/EnzoFerroni"><img src="https://github.com/EnzoFerroni.png" width="90" alt="Enzo Ferroni"/></a>
+        <br/><sub><b>Enzo Ferroni</b></sub><br/><br/>
+        <a href="https://github.com/EnzoFerroni"><img src="https://skillicons.dev/icons?i=github" alt="GitHub"/></a>
+        <a href="https://www.linkedin.com/in/enzoferroni/"><img src="https://skillicons.dev/icons?i=linkedin" alt="LinkedIn"/></a>
+      </td>
+    </tr>
+  </table>
+</div>
 
 ## License
 
